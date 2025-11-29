@@ -40,8 +40,8 @@ A complete Amazon clone mobile application built with Flutter.
    * Create uploadPreset in Settings
 
 2. Update global_keys.dart:
-   static const String cloudName = 'your_cloud_name';
-   static const String uploadPreset = 'amazon_clone';
+   * static const String cloudName = 'your_cloud_name';
+   * static const String uploadPreset = 'amazon_clone';
 
 🏗 Built With
 - Flutter - UI Framework
