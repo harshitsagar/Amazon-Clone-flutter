@@ -59,6 +59,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    final isAdmin = user.type == 'admin';
     return Scaffold(
 
       appBar: PreferredSize(
@@ -533,23 +534,25 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
             SizedBox(height: 20,),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: CustomButton(
-                  text: 'Add to Cart',
-                  color: Color(0xFFfed813),
-                  onTap: addToCart,
+            if (!isAdmin)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: CustomButton(
+                    text: 'Add to Cart',
+                    color: Color(0xFFfed813),
+                    onTap: addToCart,
+                ),
               ),
-            ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: CustomButton(
-                  text: 'Buy Now',
-                  // color: Color(0xFFffa51d),
-                  onTap: () {}
+            if (!isAdmin)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: CustomButton(
+                    text: 'Buy Now',
+                    // color: Color(0xFFffa51d),
+                    onTap: () {}
+                ),
               ),
-            ),
 
             SizedBox(height: 20),
 
@@ -903,28 +906,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: RatingBar.builder(
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: GlobalVariables.secondaryColor,
-                  ),
-                  onRatingUpdate: (rating) {
-                    productDetailsServices.rateProduct(
-                        context: context,
-                        product: widget.product,
-                        rating: rating
-                    );
-                  },
-                  initialRating: myRating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4),
+            if (!isAdmin)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: RatingBar.builder(
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: GlobalVariables.secondaryColor,
+                    ),
+                    onRatingUpdate: (rating) {
+                      productDetailsServices.rateProduct(
+                          context: context,
+                          product: widget.product,
+                          rating: rating
+                      );
+                    },
+                    initialRating: myRating,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4),
+                ),
               ),
-            ),
 
             SizedBox(height: 40),
 

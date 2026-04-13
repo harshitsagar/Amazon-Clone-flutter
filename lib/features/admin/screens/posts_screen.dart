@@ -2,6 +2,7 @@ import 'package:amazon_clone/common/widgets/loader.dart';
 import 'package:amazon_clone/features/account/widgets/single_product.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
+import 'package:amazon_clone/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone/models/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -110,6 +111,14 @@ class _PostsScreenState extends State<PostsScreen> {
     );
   }
 
+  void navigateToDetailScreen(Product product) {
+    Navigator.pushNamed(
+      context,
+      ProductDetailsScreen.routeName,
+      arguments: product,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -135,44 +144,47 @@ class _PostsScreenState extends State<PostsScreen> {
           ),
           itemBuilder: (context, index) {
             final productData = products![index];
-            return SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
-              child: Column(
-                children: [
-
-                  SizedBox(height: 10),
-
-                  SizedBox(
-                    height: 140,
-                    child: SingleProduct(
-                        image: productData.images[0],
+            return GestureDetector(
+              onTap: () => navigateToDetailScreen(productData),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+  
+                    SizedBox(height: 10),
+  
+                    SizedBox(
+                      height: 140,
+                      child: SingleProduct(
+                          image: productData.images[0],
+                      ),
                     ),
-                  ),
-              
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-              
-                      SizedBox(width: 10,),
-              
-                      Expanded(
-                          child: Text(
-                            productData.name,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                      ),
-
-                      IconButton(
-                          onPressed: () => _showDeleteConfirmationDialog(productData, index),
-                          icon: Icon(Icons.delete_outline)
-                      ),
-
-                    ],
-                  ),
-              
-                ],
+                
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                
+                        SizedBox(width: 10,),
+                
+                        Expanded(
+                            child: Text(
+                              productData.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                        ),
+  
+                        IconButton(
+                            onPressed: () => _showDeleteConfirmationDialog(productData, index),
+                            icon: Icon(Icons.delete_outline)
+                        ),
+  
+                      ],
+                    ),
+                
+                  ],
+                ),
               ),
             );
           }
