@@ -1,9 +1,9 @@
 class ApiConstants {
 
-  // static const String baseUrl = 'http://192.168.0.100:3002';
+  static const String baseUrl = 'http://192.168.1.11:3002';
   // If using mobile emulator, you might need:
   // static const String baseUrl = 'http://10.0.2.2:3002'; // for Android emulator
-  static const String baseUrl = 'http://localhost:3002'; // for iOS simulator
+  // static const String baseUrl = 'http://localhost:3002'; // for iOS simulator
 
   // API Endpoints .....
 
