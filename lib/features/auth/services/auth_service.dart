@@ -137,4 +137,37 @@ class AuthService {
     }
   }
 
+  void updateUserType({
+    required BuildContext context,
+    required String type,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response res = await http.post(
+        Uri.parse(ApiConstants.updateUserType),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!,
+        },
+        body: jsonEncode({
+          'type': type,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        onSuccess: () {
+          User user = Provider.of<UserProvider>(context, listen: false)
+              .user
+              .copyWith(type: type);
+          Provider.of<UserProvider>(context, listen: false).setUserFromModel(user);
+        },
+        context: context,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

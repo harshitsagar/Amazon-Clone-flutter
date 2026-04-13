@@ -2,7 +2,10 @@ import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/admin/screens/analytics_screen.dart';
 import 'package:amazon_clone/features/admin/screens/orders_screen.dart';
 import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -12,6 +15,8 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
+
+  final AuthService authService = AuthService();
 
   int _page = 0;
   double bottomBarWidth = 42;
@@ -62,7 +67,13 @@ class _AdminScreenState extends State<AdminScreen> {
       ),
 
       body: pages[_page],
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          String newType = context.read<UserProvider>().user.type == 'user' ? 'admin' : 'user';
+          authService.updateUserType(context: context, type: newType);
+        },
+        child: const Icon(Icons.swap_horiz),
+      ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _page,
           selectedItemColor: GlobalVariables.selectedNavBarColor,

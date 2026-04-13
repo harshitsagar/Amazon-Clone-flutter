@@ -1,5 +1,6 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/account/screens/account_screen.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:amazon_clone/features/cart/screens/cart_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
@@ -17,6 +18,8 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
 
+  final AuthService authService = AuthService();
+
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
@@ -31,9 +34,14 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
-
       body: pages[_page],
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          String newType = context.read<UserProvider>().user.type == 'user' ? 'admin' : 'user';
+          authService.updateUserType(context: context, type: newType);
+        },
+        child: const Icon(Icons.swap_horiz),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [

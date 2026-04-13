@@ -21,6 +21,7 @@ class ApiConstants {
   static const String saveUserAddress = '${baseUrl}/api/save-user-address';
   static const String order = '${baseUrl}/api/order';
   static const String getMyOrders = '${baseUrl}/api/my-orders';
+  static const String updateUserType = '${baseUrl}/api/update-user-type';
 
 
   // admin .....
