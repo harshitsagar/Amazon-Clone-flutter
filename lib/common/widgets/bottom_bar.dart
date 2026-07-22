@@ -36,6 +36,7 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       body: pages[_page],
       floatingActionButton: FloatingActionButton(
+        heroTag: 'user_toggle_fab',
         onPressed: () {
           String newType = context.read<UserProvider>().user.type == 'user' ? 'admin' : 'user';
           authService.updateUserType(context: context, type: newType);

@@ -68,6 +68,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
       body: pages[_page],
       floatingActionButton: FloatingActionButton(
+        heroTag: 'admin_toggle_fab',
         onPressed: () {
           String newType = context.read<UserProvider>().user.type == 'user' ? 'admin' : 'user';
           authService.updateUserType(context: context, type: newType);

@@ -1,9 +1,9 @@
 class ApiConstants {
 
-  static const String baseUrl = 'http://192.168.1.11:3002';
-  // If using mobile emulator, you might need:
-  // static const String baseUrl = 'http://10.0.2.2:3002'; // for Android emulator
-  // static const String baseUrl = 'http://localhost:3002'; // for iOS simulator
+  // static const String baseUrl = 'http://192.168.1.11:3002';
+  
+  // REPLACE THE URL BELOW WITH YOUR RENDER URL AFTER DEPLOYMENT
+  static const String baseUrl = 'https://amazon-clone-backend-98ke.onrender.com';
 
   // API Endpoints .....
 
